@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Humans & Cats — A Love Story</title>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --coral:   #FF6B6B;
+    --yellow:  #FFD93D;
+    --teal:    #4ECDC4;
+    --purple:  #A855F7;
+    --orange:  #FF9F43;
+    --pink:    #FF6EB4;
+    --green:   #6BCB77;
+    --navy:    #1A1A2E;
+    --cream:   #FFF8F0;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--cream);
+    color: var(--navy);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #FF6B6B 0%, #FF9F43 25%, #FFD93D 50%, #4ECDC4 75%, #A855F7 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.08'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+
+  .hero-emoji {
+    font-size: clamp(5rem, 15vw, 10rem);
+    line-height: 1;
+    animation: float 3s ease-in-out infinite;
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.2));
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50%       { transform: translateY(-20px) rotate(3deg); }
+  }
+
+  .hero h1 {
+    font-family: 'Lilita One', cursive;
+    font-size: clamp(2.5rem, 8vw, 6rem);
+    color: #fff;
+    text-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+    line-height: 1.1;
+    margin: 1rem 0 0.5rem;
+  }
+
+  .hero p {
+    font-size: clamp(1rem, 2.5vw, 1.4rem);
+    color: rgba(255,255,255,0.9);
+    max-width: 640px;
+    font-weight: 600;
+    line-height: 1.6;
+  }
+
+  .hero-btn {
+    display: inline-block;
+    margin-top: 2.5rem;
+    padding: 1rem 2.5rem;
+    background: #fff;
+    color: var(--coral);
+    font-family: 'Lilita One', cursive;
+    font-size: 1.2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .hero-btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    font-size: 2rem;
+    animation: bounce 1.5s infinite;
+    color: rgba(255,255,255,0.8);
+  }
+  @keyframes bounce {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(8px); }
+  }
+
+  /* ── STATS STRIP ── */
+  .stats {
+    background: var(--navy);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .stat {
+    flex: 1 1 200px;
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.08);
+    position: relative;
+    overflow: hidden;
+  }
+  .stat:last-child { border-right: none; }
+  .stat::before {
+    content: '';
+    position: absolute; inset: 0;
+    opacity: 0;
+    transition: opacity .3s;
+  }
+  .stat:nth-child(1)::before { background: var(--coral); }
+  .stat:nth-child(2)::before { background: var(--teal); }
+  .stat:nth-child(3)::before { background: var(--yellow); }
+  .stat:nth-child(4)::before { background: var(--purple); }
+  .stat:hover::before { opacity: 0.15; }
+
+  .stat-num {
+    font-family: 'Lilita One', cursive;
+    font-size: 3rem;
+    color: var(--yellow);
+    display: block;
+    line-height: 1;
+  }
+  .stat-label {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    margin-top: .4rem;
+    display: block;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 5rem 1.5rem; }
+
+  .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-tag {
+    display: inline-block;
+    padding: .3rem .9rem;
+    border-radius: 50px;
+    font-size: .75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    margin-bottom: .75rem;
+  }
+
+  .section-title {
+    font-family: 'Lilita One', cursive;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.15;
+    margin-bottom: 1.5rem;
+  }
+
+  /* ── CARDS GRID ── */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .card {
+    border-radius: 20px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform .25s, box-shadow .25s;
+    cursor: default;
+  }
+  .card:hover {
+    transform: translateY(-8px) rotate(-1deg);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.12);
+  }
+  .card-emoji { font-size: 2.8rem; margin-bottom: .75rem; display: block; }
+  .card h3 {
+    font-family: 'Lilita One', cursive;
+    font-size: 1.35rem;
+    margin-bottom: .5rem;
+  }
+  .card p { font-size: .95rem; line-height: 1.65; font-weight: 600; opacity: .85; }
+
+  .card-coral  { background: #FFF0EE; border: 3px solid var(--coral); }
+  .card-teal   { background: #EEFAF9; border: 3px solid var(--teal); }
+  .card-yellow { background: #FFFBEE; border: 3px solid var(--yellow); }
+  .card-purple { background: #F5EEFF; border: 3px solid var(--purple); }
+  .card-orange { background: #FFF4EB; border: 3px solid var(--orange); }
+  .card-green  { background: #EDFAEF; border: 3px solid var(--green); }
+  .card-pink   { background: #FFF0F7; border: 3px solid var(--pink); }
+
+  /* ── ALTERNATING FEATURE ── */
+  .feature {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 3rem;
+    margin-bottom: 5rem;
+  }
+  .feature.reverse { flex-direction: row-reverse; }
+  .feature-art {
+    flex: 1 1 280px;
+    border-radius: 28px;
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 8rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .feature-art .bg-circle {
+    position: absolute;
+    width: 220%;
+    height: 220%;
+    border-radius: 50%;
+    top: -60%;
+    left: -60%;
+    opacity: .18;
+  }
+  .feature-text { flex: 1 1 300px; }
+  .feature-text p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    font-weight: 600;
+    opacity: .85;
+  }
+
+  /* ── TIMELINE ── */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    border-left: 4px solid var(--teal);
+    margin-top: 2rem;
+  }
+  .timeline-item {
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+  .timeline-dot {
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    position: absolute;
+    left: -2.65rem;
+    top: .3rem;
+    border: 3px solid #fff;
+  }
+  .timeline-year {
+    font-family: 'Lilita One', cursive;
+    font-size: 1.5rem;
+    margin-bottom: .25rem;
+  }
+  .timeline-text { font-size: .95rem; line-height: 1.65; font-weight: 600; opacity: .82; }
+
+  /* ── CTA BANNER ── */
+  .cta-banner {
+    background: linear-gradient(135deg, var(--coral), var(--orange));
+    border-radius: 28px;
+    padding: 4rem 2.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-banner::before {
+    content: '🐾';
+    position: absolute;
+    font-size: 12rem;
+    opacity: .07;
+    right: -2rem;
+    top: -2rem;
+  }
+  .cta-banner h2 {
+    font-family: 'Lilita One', cursive;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    color: #fff;
+    text-shadow: 2px 2px 0 rgba(0,0,0,.1);
+    margin-bottom: 1rem;
+  }
+  .cta-banner p {
+    color: rgba(255,255,255,.9);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: #fff;
+    color: var(--coral);
+    font-family: 'Lilita One', cursive;
+    font-size: 1.3rem;
+    padding: 1rem 3rem;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 8px 25px rgba(0,0,0,.2);
+    transition: transform .2s, box-shadow .2s;
+  }
+  .cta-btn:hover {
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 14px 35px rgba(0,0,0,.25);
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    color: rgba(255,255,255,.6);
+    text-align: center;
+    padding: 2.5rem 1rem;
+    font-size: .9rem;
+    font-weight: 600;
+  }
+  footer a { color: var(--yellow); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ── SECTION BGs ── */
+  .bg-soft-teal   { background: #F0FDFB; }
+  .bg-soft-purple { background: #FAF5FF; }
+  .bg-soft-yellow { background: #FFFDE7; }
+  .bg-white        { background: #fff; }
+
+  /* paw prints scattered */
+  .paw-scatter {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    overflow: hidden;
+  }
+  .paw-scatter span {
+    position: absolute;
+    font-size: 1.4rem;
+    opacity: .04;
+    animation: drift linear infinite;
+  }
+  @keyframes drift {
+    0%   { transform: translateY(100vh) rotate(0deg); }
+    100% { transform: translateY(-100px) rotate(360deg); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Scattered paw bg -->
+<div class="paw-scatter" aria-hidden="true">
+  <span style="left:5%;  animation-duration:18s; animation-delay:0s;">🐾</span>
+  <span style="left:15%; animation-duration:24s; animation-delay:4s;">🐾</span>
+  <span style="left:30%; animation-duration:20s; animation-delay:1s;">🐾</span>
+  <span style="left:50%; animation-duration:22s; animation-delay:7s;">🐾</span>
+  <span style="left:65%; animation-duration:16s; animation-delay:2s;">🐾</span>
+  <span style="left:80%; animation-duration:28s; animation-delay:5s;">🐾</span>
+  <span style="left:92%; animation-duration:19s; animation-delay:3s;">🐾</span>
+</div>
+
+<!-- ══ HERO ══ -->
+<header class="hero">
+  <div class="hero-emoji">🐱</div>
+  <h1>Humans &amp; Cats<br>A Love Story</h1>
+  <p>Thousands of years of friendship, purrs, and mutual fascination. Explore the fascinating science and history behind our bond with cats.</p>
+  <a href="https://paniaguai.github.io/pawz/" target="_blank" rel="noopener" class="hero-btn">🐾 Visit PawVibesZ</a>
+  <span class="scroll-hint">↓</span>
+</header>
+
+<!-- ══ STATS ══ -->
+<div class="stats">
+  <div class="stat">
+    <span class="stat-num">600M+</span>
+    <span class="stat-label">Cats worldwide</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">82M</span>
+    <span class="stat-label">Pet cats in the US</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">10,000</span>
+    <span class="stat-label">Years of domestication</span>
+  </div>
+  <div class="stat">
+    <span class="stat-num">41</span>
+    <span class="stat-label">Recognized breeds (CFA)</span>
+  </div>
+</div>
+
+<!-- ══ COMMUNICATION ══ -->
+<section class="bg-soft-teal">
+  <div class="section-inner">
+    <span class="section-tag" style="background:#CCFAF5;color:#0D9488;">How They Talk to Us</span>
+    <h2 class="section-title">Cat Communication 101</h2>
+    <div class="cards">
+      <div class="card card-teal">
+        <span class="card-emoji">😸</span>
+        <h3>Vocalizations</h3>
+        <p>Cats meow almost exclusively to communicate with humans — adult cats rarely meow at each other! Each cat develops a unique "vocabulary" for its owner.</p>
+      </div>
+      <div class="card card-coral">
+        <span class="card-emoji">🐈</span>
+        <h3>Body Language</h3>
+        <p>From the slow blink (a cat's kiss!) to an upright tail as a greeting, cats express a rich emotional world through posture, ears, and tail position.</p>
+      </div>
+      <div class="card card-yellow">
+        <span class="card-emoji">😻</span>
+        <h3>Purring</h3>
+        <p>Cats purr not only when happy but also to self-soothe. The 25–50 Hz frequency of purring has even been linked to promoting bone healing in both cats and humans.</p>
+      </div>
+      <div class="card card-purple">
+        <span class="card-emoji">🐾</span>
+        <h3>Scent Marking</h3>
+        <p>Head-bunting and rubbing deposit scent glands on their favourite humans — it's a profound sign of trust and ownership (you belong to them now).</p>
+      </div>
+      <div class="card card-orange">
+        <span class="card-emoji">👁️</span>
+        <h3>Eye Contact</h3>
+        <p>A direct, relaxed gaze with slow blinks signals deep comfort. Research shows humans who slow-blink back strengthen the bond with their cats significantly.</p>
+      </div>
+      <div class="card card-green">
+        <span class="card-emoji">🎶</span>
+        <h3>Chirping & Trilling</h3>
+        <p>The chirp (often directed at birds) and the trill (a greeting roll) are among the most delightful sounds in the feline repertoire — pure cat joy.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HISTORY ══ -->
+<section class="bg-soft-yellow">
+  <div class="section-inner">
+    <span class="section-tag" style="background:#FEF08A;color:#A16207;">A History Together</span>
+    <h2 class="section-title">From Grain Stores to Sofas</h2>
+
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--coral);"></div>
+        <div class="timeline-year" style="color:var(--coral);">~10,000 BCE</div>
+        <p class="timeline-text">Cats begin hanging around early farming settlements in the Fertile Crescent, attracted by rodents feeding on stored grain — a mutually beneficial arrangement that started it all.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--yellow);"></div>
+        <div class="timeline-year" style="color:#B45309;">~4,000 BCE</div>
+        <p class="timeline-text">Ancient Egyptians worship the cat goddess Bastet. Cats become sacred animals, killing one punishable by death. They protect homes and temples from snakes and rodents.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--teal);"></div>
+        <div class="timeline-year" style="color:var(--teal);">Middle Ages</div>
+        <p class="timeline-text">Ship's cats become indispensable crew members on voyages worldwide, keeping rats from destroying cargo and ropes. Dark times too — cats were associated with witchcraft and persecuted across Europe, ironically worsening the Black Plague by letting rat populations explode.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--purple);"></div>
+        <div class="timeline-year" style="color:var(--purple);">1500s</div>
+        <p class="timeline-text">A cat takes up residence at 10 Downing Street, London, beginning a tradition of official pest control that continues to this day. The post is formally titled "Chief Mouser to the Cabinet Office" from 2011 onwards.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--orange);"></div>
+        <div class="timeline-year" style="color:var(--orange);">1940s–50s</div>
+        <p class="timeline-text">Cat litter is invented in the mid-20th century, transforming cats from outdoor or barn animals into true indoor companions. This single innovation reshapes cat ownership across the Western world.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--pink);"></div>
+        <div class="timeline-year" style="color:#BE185D;">1985</div>
+        <p class="timeline-text">Cats officially surpass dogs as the most popular pet in the United States for the first time — a milestone driven by their independence, apartment-friendliness, and the spread of indoor litter boxes.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--green);"></div>
+        <div class="timeline-year" style="color:#166534;">Early 2000s</div>
+        <p class="timeline-text">The internet discovers cats. Online communities like MetaFilter, 4chan, and early Japanese photo blogs popularise sharing cat pictures. Cats become the unofficial mascots of the World Wide Web — a phenomenon unlike any animal-human relationship in history.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--coral);"></div>
+        <div class="timeline-year" style="color:var(--coral);">2006–2007</div>
+        <p class="timeline-text">LOLcats, Caturday, and the iconic "I Can Has Cheezburger?" website launch a new era of cat culture online. The first viral cat video — <em>Puppy vs. Cat</em> — goes global in 2006, proving cats and the internet are inseparable.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--yellow);"></div>
+        <div class="timeline-year" style="color:#B45309;">2011–2012</div>
+        <p class="timeline-text">Nyan Cat, a pixelated pop-tart flying cat, racks up over 200 million YouTube views shortly after release. Grumpy Cat goes viral in 2012, eventually generating millions in merchandise and a Guinness World Record, becoming the first true celebrity cat of the social media age.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--teal);"></div>
+        <div class="timeline-year" style="color:var(--teal);">2015</div>
+        <p class="timeline-text">The Museum of the Moving Image in New York City opens <em>"How Cats Took Over the Internet"</em> — the first major cultural institution to formally document cats' dominance of digital culture. Cat content is officially recognised as a force in modern media.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--purple);"></div>
+        <div class="timeline-year" style="color:var(--purple);">2019–2020</div>
+        <p class="timeline-text">Global cat ownership surges during the COVID-19 pandemic years. With millions working from home, cat adoptions spike worldwide as people seek companionship. Studies confirm that living with cats measurably reduces anxiety and loneliness during lockdowns.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--orange);"></div>
+        <div class="timeline-year" style="color:var(--orange);">2020s</div>
+        <p class="timeline-text">The "Cat Distribution System" meme goes viral — the idea that stray cats choose their humans, not the other way around. TikTok supercharges cat content to a new generation; cat-related videos routinely hit hundreds of millions of views. Estimated global cat population reaches up to 600 million.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--pink);"></div>
+        <div class="timeline-year" style="color:#BE185D;">2025</div>
+        <p class="timeline-text">New genetic research rewrites cat domestication history, suggesting domestic cats originated specifically in North Africa and only reached Europe around 2,000 years ago — far more recently than previous estimates of 9,600 years. The science of the human–cat bond continues to evolve.</p>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-dot" style="background:var(--green);border:3px solid var(--green);box-shadow:0 0 0 4px rgba(107,203,119,.25);"></div>
+        <div class="timeline-year" style="color:#166534;">2026 — Today 🐾</div>
+        <p class="timeline-text">Cats remain the world's most popular pet alongside dogs, with an estimated 200–600 million living as companions globally. From grain-store pest controllers to internet royalty and beloved family members, the human–cat story is still being written — one purr at a time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ HEALTH BENEFITS ══ -->
+<section class="bg-soft-purple">
+  <div class="section-inner">
+    <span class="section-tag" style="background:#EDE9FE;color:#7C3AED;">Science Says…</span>
+    <h2 class="section-title">Why Cats Are Good for You</h2>
+
+    <div class="feature">
+      <div class="feature-art" style="background:linear-gradient(135deg,#FF6B6B,#FF9F43);">
+        <div class="bg-circle" style="background:#fff;"></div>
+        <span style="position:relative;z-index:1;">❤️‍🔥</span>
+      </div>
+      <div class="feature-text">
+        <h3 class="section-title" style="font-size:1.8rem;">Heart Health</h3>
+        <p>Studies have found that cat owners have a significantly lower risk of heart attack and stroke. The calming effect of a cat's purr can reduce stress hormones and lower blood pressure in minutes.</p>
+      </div>
+    </div>
+
+    <div class="feature reverse">
+      <div class="feature-art" style="background:linear-gradient(135deg,#4ECDC4,#A855F7);">
+        <div class="bg-circle" style="background:#fff;"></div>
+        <span style="position:relative;z-index:1;">🧠</span>
+      </div>
+      <div class="feature-text">
+        <h3 class="section-title" style="font-size:1.8rem;">Mental Well-being</h3>
+        <p>Interacting with cats releases oxytocin — the bonding hormone. Cat ownership is associated with reduced anxiety, lower depression scores, and an improved sense of purpose and routine.</p>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature-art" style="background:linear-gradient(135deg,#FFD93D,#6BCB77);">
+        <div class="bg-circle" style="background:#fff;"></div>
+        <span style="position:relative;z-index:1;">👶</span>
+      </div>
+      <div class="feature-text">
+        <h3 class="section-title" style="font-size:1.8rem;">Childhood Immunity</h3>
+        <p>Children who grow up with cats in their first year of life show a reduced likelihood of developing allergies and asthma later on, as early exposure helps train the immune system.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FUN FACTS ══ -->
+<section class="bg-white">
+  <div class="section-inner">
+    <span class="section-tag" style="background:#FCE7F3;color:#BE185D;">Did You Know?</span>
+    <h2 class="section-title">Purrfectly Fascinating Facts</h2>
+    <div class="cards">
+      <div class="card card-pink">
+        <span class="card-emoji">🏠</span>
+        <h3>Indoor vs Outdoor</h3>
+        <p>In the US, most pet cats are kept indoors full-time. In the UK, only 26% are always indoors — the rest roam gardens and neighbourhoods freely.</p>
+      </div>
+      <div class="card card-teal">
+        <span class="card-emoji">🐭</span>
+        <h3>Master Hunters</h3>
+        <p>Cats retain their hunting instincts entirely. Farm cats and ship's cats have kept pest populations in check for millennia — a purely practical start to a profound friendship.</p>
+      </div>
+      <div class="card card-coral">
+        <span class="card-emoji">🧬</span>
+        <h3>Pure vs Mixed</h3>
+        <p>Purebred cats make up less than 10% of the world's cat population. The CFA recognises 41 breeds, 16 of which emerged naturally before selective breeding began.</p>
+      </div>
+      <div class="card card-orange">
+        <span class="card-emoji">🤧</span>
+        <h3>Allergies</h3>
+        <p>Up to 3 in 10 Americans are allergic to cats. The culprit is Fel d 1, a protein found in all breed's saliva and dander. Yet many allergic owners happily live with their cats anyway!</p>
+      </div>
+      <div class="card card-yellow">
+        <span class="card-emoji">👩‍⚕️</span>
+        <h3>Hypoallergenic Dreams</h3>
+        <p>Scientists have worked on engineering cats that produce less Fel d 1. While no truly hypoallergenic cat exists yet, some breeds trigger fewer reactions than others.</p>
+      </div>
+      <div class="card card-green">
+        <span class="card-emoji">🌏</span>
+        <h3>Truly Global</h3>
+        <p>Cats are kept as pets on every permanently inhabited continent. Global estimates range from 200 million to 600 million — making them one of the most widespread companion animals ever.</p>
+      </div>
+      <div class="card card-purple">
+        <span class="card-emoji">😴</span>
+        <h3>Sleep Champions</h3>
+        <p>Cats sleep between 12 and 16 hours a day — not laziness, but an evolutionary adaptation for conserving energy between intense bursts of hunting activity.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section style="background:var(--cream);">
+  <div class="section-inner">
+    <div class="cta-banner">
+      <h2>Love Cats as Much as We Do? 🐾</h2>
+      <p>Head over to PawVibesZ — your ultimate destination for everything feline, from tips and toys to tails and treats!</p>
+      <a href="https://paniaguai.github.io/pawz/" target="_blank" rel="noopener" class="cta-btn">🐱 Explore PawVibesZ →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <p>Content inspired by <a href="https://en.wikipedia.org/wiki/Human_interaction_with_cats" target="_blank" rel="noopener">Wikipedia — Human interaction with cats</a> &nbsp;|&nbsp; Visit <a href="https://paniaguai.github.io/pawz/" target="_blank" rel="noopener">PawVibesZ 🐾</a></p>
+  <p style="margin-top:.5rem;opacity:.5;">Made with 💛 for cat lovers everywhere</p>
+</footer>
+
+</body>
+</html>
